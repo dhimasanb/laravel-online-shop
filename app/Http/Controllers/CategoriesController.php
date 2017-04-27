@@ -20,7 +20,7 @@ class CategoriesController extends Controller
     public function index(Request $request)
     {
       $q = $request->get('q');
-      $categories = Category::where('title', 'LIKE', '%'.$q.'%')->orderBy('title')->paginate(10);
+      $categories = Category::where('title', 'LIKE', '%'.$q.'%')->orderBy('title')->paginate(5);
       return view('categories.index', compact('categories', 'q'));
     }
 
@@ -31,7 +31,7 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -42,7 +42,12 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+          'title' => 'required|string|max:255|unique:categories',
+          'parent_id' => 'exists:categories,id'
+      ]);
+      Category::create($request->all());
+      return redirect()->route('categories.index');
     }
 
     /**
