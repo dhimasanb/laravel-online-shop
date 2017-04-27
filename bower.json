@@ -1,0 +1,17 @@
+{
+  "name": "laravel-online-shop",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Dhimas Akbar N.B <dhimasakbarnoorbaihaque@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/dhimasanb/laravel-online-shop",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
