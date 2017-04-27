@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h3>Category</h3>
+      <h3>Category <small><a href="{{ route('categories.create') }}" class="btn btn-warning btn-sm">New Category</a></small></h3>
       {!! Form::open(['url' => 'categories', 'method'=>'get', 'class'=>'form-inline']) !!}
         <div class="form-group {!! $errors->has('q') ? 'has-error' : '' !!}">
           {!! Form::text('q', isset($q) ? $q : null, ['class'=>'form-control', 'placeholder' => 'Type category..']) !!}
