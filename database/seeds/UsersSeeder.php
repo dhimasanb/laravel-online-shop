@@ -11,6 +11,20 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        //
+      // sample admin
+      App\User::create([
+          'name' => 'Admin',
+          'email' => 'admin@gmail.com',
+          'password' => bcrypt('secret'),
+          'role' => 'admin'
+      ]);
+
+      // sample customer
+      App\User::create([
+          'name' => 'customer',
+          'email' => 'customer@gmail.com',
+          'password' => bcrypt('secret'),
+          'role' => 'customer'
+      ]);
     }
 }
