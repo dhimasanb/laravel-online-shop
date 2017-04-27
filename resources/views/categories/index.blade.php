@@ -27,7 +27,7 @@
             @endforeach
           </tbody>
         </table>
-        {{ $categories->links() }}
+        {{ $categories->appends(compact('q'))->links() }}
       </div>
     </div>
 </div>

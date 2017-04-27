@@ -17,10 +17,11 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::paginate(5);
-        return view('categories.index', compact('categories'));
+      $q = $request->get('q');
+      $categories = Category::where('title', 'LIKE', '%'.$q.'%')->orderBy('title')->paginate(10);
+      return view('categories.index', compact('categories', 'q'));
     }
 
     /**
