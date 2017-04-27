@@ -47,6 +47,7 @@ class CategoriesController extends Controller
           'parent_id' => 'exists:categories,id'
       ]);
       Category::create($request->all());
+      flash($request->get('title') . ' category saved.')->success()->important();
       return redirect()->route('categories.index');
     }
 
