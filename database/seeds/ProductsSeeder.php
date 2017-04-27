@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Category;
+use App\Product;
 
 class ProductsSeeder extends Seeder
 {
@@ -12,7 +14,7 @@ class ProductsSeeder extends Seeder
     public function run()
     {
       // sample category
-      $sepatu = Category::create(['title' => 'Sepatu']);
+      $sepatu = Category::create(['title' => 'Sepatu', 'parent_id' => 0]);
       $sepatu->childs()->saveMany([
           new Category(['title' => 'Lifestyle']),
           new Category(['title' => 'Berlari']),
@@ -20,7 +22,7 @@ class ProductsSeeder extends Seeder
           new Category(['title' => 'Sepakbola'])
       ]);
 
-      $pakaian = Category::create(['title' => 'Pakaian']);
+      $pakaian = Category::create(['title' => 'Pakaian', 'parent_id' => 0]);
       $pakaian->childs()->saveMany([
           new Category(['title' => 'Jaket']),
           new Category(['title' => 'Hoodie']),
