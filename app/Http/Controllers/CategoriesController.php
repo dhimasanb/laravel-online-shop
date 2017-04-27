@@ -83,7 +83,14 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $this->validate($request, [
+            'title' => 'required|string|max:255|unique:categories,title,' . $category->id,
+            'parent_id' => 'exists:categories,id'
+        ]);
+        $category->update($request->all());
+        flash($request->get('title') . ' category updated.')->success()->important();
+        return redirect()->route('categories.index');
     }
 
     /**
