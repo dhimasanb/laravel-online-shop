@@ -8,20 +8,20 @@ class Category extends Model
 {
     protected $fillable = ['title', 'parent_id'];
 
-    /* public static function boot()
+    public static function boot()
     {
         parent::boot();
 
         static::deleting(function($model) {
             // remove parent from this category's child
             foreach ($model->childs as $child) {
-                $child->parent_id = '';
+                $child->parent_id = 0;
                 $child->save();
             }
             // remove relations to products
             $model->products()->detach();
         });
-    } */
+    }
 
     public function childs()
     {
