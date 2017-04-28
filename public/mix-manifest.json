@@ -1,5 +1,7 @@
 {
-  "/js/app.js": "/js/app.aa6e17384360c6564ceb.js",
-  "/css/app.css": "/css/app.5d9cb0105749a63e10d03d4e6ef535ab.css",
-  "/css/all.css": "/css/all.d41d8cd98f00b204e9800998ecf8427e.css"
+  "/assets/js/app.js": "/assets/js/app.js",
+  "/assets/css/app.css": "/assets/css/app.css",
+  "/assets/css/libs.css": "/assets/css/libs.css",
+  "/assets/js/all.js": "/assets/js/all.js",
+  "/assets/js/libs.js": "/assets/js/libs.js"
 }
