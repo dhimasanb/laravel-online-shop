@@ -11,19 +11,35 @@ const { mix } = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
-mix.styles([
-   'public/css/vendor/normalize.css',
-   'public/css/vendor/videojs.css'
-], 'public/css/all.css');
-mix.scripts([
-   '../../../node_modules/jquery/dist/jquery.js',
-   '../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'
-], 'public/js/all.js');
+mix.copy(
+        'bower_components/sweetalert/dist/sweetalert-dev.js',
+        'resources/assets/js/libs'
+    ).copy(
+        'bower_components/sweetalert/dist/sweetalert.css',
+        'resources/assets/css/libs'
+    );
+
+mix.js([
+         'resources/assets/js/app.js',
+         'resources/assets/js/custom.js'
+    ], 'public/assets/js/app.js')
+    .sass('resources/assets/sass/app.scss',
+         'public/assets/css/app.css')
+   .styles([
+        'resources/assets/css/libs/sweetalert.css'
+    ],  'public/assets/css/libs.css')
+   .scripts([
+        //'bootstrap.js'
+    ],  'public/assets/js/all.js')
+    .scripts([
+        'resources/assets/js/libs/sweetalert-dev.js'
+    ],  'public/assets/js/libs.js');
+
+/* Versioning for production
 mix.version([
-   'css/all.css',
-   'js/all.js'
-]);
-mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
-mix.copy('node_modules/font-awesome/fonts', 'public/build/fonts');
+   'public/assets/css/app.css',
+   'public/assets/css/libs.css',
+   'public/assets/js/app.js'
+   'public/assets/js/all.js'
+   'public/assets/js/libs.js'
+]); */
