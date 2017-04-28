@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('assets/css/app.css') }}">
+    <link rel="stylesheet" href="{{ mix('assets/css/libs.css') }}">
 
     <!-- Scripts -->
     <script>
@@ -99,6 +100,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ mix('assets/js/app.js') }}"></script>
+    <script src="{{ mix('assets/js/all.js') }}"></script>
+    <script src="{{ mix('assets/js/libs.js') }}"></script>
 </body>
 </html>
