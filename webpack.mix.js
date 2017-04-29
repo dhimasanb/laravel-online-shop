@@ -17,6 +17,12 @@ mix.copy(
     ).copy(
         'bower_components/sweetalert/dist/sweetalert.css',
         'resources/assets/css/libs'
+    ).copy(
+        'bower_components/selectize/dist/css/selectize.bootstrap3.css',
+        'resources/assets/css/libs'
+    ).copy(
+        'bower_components/selectize/dist/js/standalone/selectize.min.js',
+        'resources/assets/js/libs'
     );
 
 mix.js([
@@ -26,13 +32,13 @@ mix.js([
     .sass('resources/assets/sass/app.scss',
          'public/assets/css/app.css')
    .styles([
-        'resources/assets/css/libs/sweetalert.css'
+        'resources/assets/css/libs/*'
     ],  'public/assets/css/libs.css')
    .scripts([
         //'bootstrap.js'
     ],  'public/assets/js/all.js')
     .scripts([
-        'resources/assets/js/libs/sweetalert-dev.js'
+        'resources/assets/js/libs/*'
     ],  'public/assets/js/libs.js');
 
 /* Versioning for production
