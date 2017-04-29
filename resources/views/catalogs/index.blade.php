@@ -9,9 +9,9 @@
       <div class="col-md-9">
         <div class="row">
           <div class="col-md-12">
-            <ol class="breadcrumb">
-              <li>Kategori: Semua Produk</li>
-            </ol>
+            @include('catalogs._breadcrumb', [
+              'current_category' => isset($category) ? $category : null
+            ])
           </div>
           @foreach ($products as $product)
           <div class="col-md-6">
