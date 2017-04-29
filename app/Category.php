@@ -37,4 +37,18 @@ class Category extends Model
     {
         return $this->belongsToMany('App\Product');
     }
+
+    public function getRelatedProductsIdAttribute()
+    {
+        $result = $this->products->pluck('id')->toArray();
+        foreach ($this->childs as $child) {
+            $result = array_merge($result, $child->related_products_id);
+        }
+        return $result;
+    }
+
+    public function scopeNoParent($query)
+    {
+        return $this->where('parent_id', '');
+    }
 }
