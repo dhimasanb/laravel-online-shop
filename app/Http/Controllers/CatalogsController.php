@@ -19,6 +19,6 @@ class CatalogsController extends Controller
       } else {
         $products = Product::paginate(4);
       }
-      return view('catalogs.index', compact('products', 'cat'));
+      return view('catalogs.index', compact('products', 'cat', 'category'));
     }
 }
