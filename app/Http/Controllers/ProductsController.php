@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ProductsController extends Controller
 {
+    protected function savePhoto(UploadedFile $photo)
+    {
+        $fileName = str_random(40) . '.' . $photo->guessClientExtension();
+        $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
+        $photo->move($destinationPath, $fileName);
+        return $fileName;
+    }
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -82,7 +91,8 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::findOrFail($id);
+        return view('products.edit', compact('product'));
     }
 
     /**
