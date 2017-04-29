@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
 
 class ProductsController extends Controller
 {
@@ -16,9 +17,13 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $q = $request->get('q');
+        $products = Product::where('name', 'LIKE', '%'.$q.'%')
+        ->orWhere('model', 'LIKE', '%'.$q.'%')
+        ->orderBy('name')->paginate(10);
+        return view('products.index', compact('products', 'q'));
     }
 
     /**
