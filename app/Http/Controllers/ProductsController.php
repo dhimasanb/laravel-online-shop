@@ -47,9 +47,10 @@ class ProductsController extends Controller
       $this->validate($request, [
           'name' => 'required|unique:products',
           'model' => 'required',
-          'photo' => 'mimes:jpeg,png|max:10240'
+          'photo' => 'mimes:jpeg,png|max:10240',
+          'price' => 'required|numeric|min:1000'
       ]);
-      $data = $request->only('name', 'model');
+      $data = $request->only('name', 'model', 'price');
 
       if ($request->hasFile('photo')) {
           $data['photo'] = $this->savePhoto($request->file('photo'));
