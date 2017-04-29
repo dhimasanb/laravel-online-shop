@@ -10,4 +10,7 @@
         {{ $category->title }}</span>
       @endforeach
     </p>
+
+    @include('layouts._customer-feature', ['partial_view'=>'catalogs._add-product-form', 'data' => compact('product')])
+
 </div>
