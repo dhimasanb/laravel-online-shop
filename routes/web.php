@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index');
 Route::resource('categories', 'CategoriesController');
 Route::resource('products', 'ProductsController');
 Route::get('/catalogs', 'CatalogsController@index');
+Route::post('cart', 'CartController@addProduct');
