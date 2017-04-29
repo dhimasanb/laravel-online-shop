@@ -27,6 +27,12 @@
             @include('catalogs._breadcrumb', [
               'current_category' => isset($category) ? $category : null
             ])
+            @if ($errors->has('quantity'))
+            <div class="alert alert-danger">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{ $errors->first('quantity') }}
+            </div>
+            @endif
           </div>
           @forelse ($products as $product)
            <div class="col-md-6">
