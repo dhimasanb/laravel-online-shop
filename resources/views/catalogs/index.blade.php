@@ -49,7 +49,7 @@
          @endforelse
 
           <div class="pull-right">
-            {!! $products->appends(compact('cat', 'q'))->links() !!}
+            {!! $products->appends(compact('cat'))->links() !!}
           </div>
         </div>
       </div>
