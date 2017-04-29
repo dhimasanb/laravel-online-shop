@@ -44,7 +44,22 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $this->validate($request, [
+          'name' => 'required|unique:products',
+          'model' => 'required',
+          'photo' => 'mimes:jpeg,png|max:10240'
+      ]);
+      $data = $request->only('name', 'model');
+
+      if ($request->hasFile('photo')) {
+          $data['photo'] = $this->savePhoto($request->file('photo'));
+      }
+
+      $product = Product::create($data);
+      $product->categories()->sync($request->get('category_lists'));
+
+      flash($product->name . ' saved.')->success()->important();
+      return redirect()->route('products.index');
     }
 
     /**
