@@ -56,4 +56,14 @@ class Category extends Model
     {
         return Product::whereIn('id', $this->related_products_id)->count();
     }
+
+    public function hasParent()
+    {
+        return $this->parent_id > 0;
+    }
+
+    public function hasChild()
+    {
+        return $this->childs()->count() > 0;
+    }
 }
