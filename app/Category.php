@@ -51,4 +51,9 @@ class Category extends Model
     {
         return $this->where('parent_id', '');
     }
+
+    public function getTotalProductsAttribute()
+    {
+        return Product::whereIn('id', $this->related_products_id)->count();
+    }
 }
