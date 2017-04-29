@@ -4,6 +4,11 @@
   <div class="container">
     <div class="row">
       <div class="col-md-3">
+        @include('catalogs._search-panel', [
+          'q' => isset($q) ? $q : null,
+          'cat' => isset($cat) ? $cat : ''
+        ])
+
         @include('catalogs._category-panel')
 
         @if (isset($category) && $category->hasChild())
