@@ -20,7 +20,7 @@
           @endforeach
 
           <div class="pull-right">
-            {!! $products->links() !!}
+            {!! $products->appends(compact('cat'))->links() !!}
           </div>
         </div>
       </div>
