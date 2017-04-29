@@ -5,6 +5,16 @@
     <div class="row">
       <div class="col-md-3">
         @include('catalogs._category-panel')
+
+        @if (isset($category) && $category->hasChild())
+          @include('catalogs._sub-category-panel', ['current_category' => $category])
+        @endif
+
+        @if (isset($category) && $category->hasParent())
+          @include('catalogs._sub-category-panel', [
+            'current_category' => $category->parent
+          ])
+        @endif
       </div>
       <div class="col-md-9">
         <div class="row">
