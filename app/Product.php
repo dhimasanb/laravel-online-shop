@@ -30,4 +30,13 @@ class Product extends Model
         }
         return $this->categories->pluck('id')->all();
     }
+
+    public function getPhotoPathAttribute()
+    {
+        if ($this->photo !== '') {
+            return url('/img/' . $this->photo);
+        } else {
+            return 'http://placehold.it/850x618';
+        }
+    }
 }
