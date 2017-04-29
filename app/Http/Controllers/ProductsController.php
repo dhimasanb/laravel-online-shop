@@ -104,7 +104,30 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $this->validate($request, [
+            'name' => 'required|unique:products,name,'. $product->id,
+            'model' => 'required',
+            'photo' => 'mimes:jpeg,png|max:10240',
+            'price' => 'required|numeric|min:1000'
+        ]);
+        $data = $request->only('name', 'model', 'price');
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $this->savePhoto($request->file('photo'));
+            if ($product->photo !== '') $this->deletePhoto($product->photo);
+        }
+
+        $product->update($data);
+        if (count($request->get('category_lists')) > 0) {
+            $product->categories()->sync($request->get('category_lists'));
+        } else {
+            // no category set, detach all
+            $product->categories()->detach();
+        }
+
+        flash($product->name . ' updated.')->success()->important();
+        return redirect()->route('products.index');
     }
 
     /**
