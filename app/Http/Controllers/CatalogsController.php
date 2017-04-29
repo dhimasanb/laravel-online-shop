@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 
 class CatalogsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
       if ($request->has('cat')) {
         $cat = $request->get('cat');
