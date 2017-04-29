@@ -12,4 +12,12 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Category');
     }
+
+    public function getCategoryListsAttribute()
+    {
+        if ($this->categories()->count() < 1) {
+            return null;
+        }
+        return $this->categories->pluck('id')->all();
+    }
 }
