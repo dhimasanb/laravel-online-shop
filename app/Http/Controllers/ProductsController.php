@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use File;
 
 class ProductsController extends Controller
 {
@@ -139,5 +140,12 @@ class ProductsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function deletePhoto($filename)
+    {
+        $path = public_path() . DIRECTORY_SEPARATOR . 'img'
+            . DIRECTORY_SEPARATOR . $filename;
+        return File::delete($path);
     }
 }
