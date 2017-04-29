@@ -23,7 +23,13 @@ mix.copy(
     ).copy(
         'bower_components/selectize/dist/js/standalone/selectize.min.js',
         'resources/assets/js/libs'
+    ).copy(
+        //'bower_components/font-awesome/css/font-awesome.css',
+        'resources/assets/css/libs'
     );
+
+mix.copy('bower_components/font-awesome/fonts', 'public/fonts')
+mix.copy('bower_components/font-awesome/fonts', 'public/build/fonts')
 
 mix.js([
          'resources/assets/js/app.js',
