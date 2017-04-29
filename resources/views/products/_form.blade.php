@@ -10,6 +10,12 @@
   {!! $errors->first('model', '<p class="help-block">:message</p>') !!}
 </div>
 
+<div class="form-group {!! $errors->has('price') ? 'has-error' : '' !!}">
+  {!! Form::label('price', 'Price') !!}
+  {!! Form::text('price', null, ['class'=>'form-control']) !!}
+  {!! $errors->first('price', '<p class="help-block">:message</p>') !!}
+</div>
+
 <div class="form-group {!! $errors->has('category_lists') ? 'has-error' : '' !!}">
   {!! Form::label('category_lists', 'Categories') !!}
   {{-- Simplify things, no need to implement ajax for now --}}
