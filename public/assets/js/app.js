@@ -816,6 +816,10 @@ $(document).ready(function () {
       $form.submit();
     });
   });
+
+  $('.js-selectize').selectize({
+    sortField: 'text'
+  });
 });
 
 /***/ }),
