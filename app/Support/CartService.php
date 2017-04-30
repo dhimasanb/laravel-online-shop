@@ -68,4 +68,12 @@ class CartService {
         return $result;
     }
 
+    public function find($product_id)
+    {
+        foreach ($this->details() as $order) {
+            if ($order['id'] == $product_id) return $order;
+        }
+        return null;
+    }
+
 }
