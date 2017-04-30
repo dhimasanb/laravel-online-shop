@@ -24,4 +24,18 @@ $(document).ready(function () {
   $('.js-selectize').selectize({
     sortField: 'text'
   })
+
+  // checkout login form
+  if ($('input[name=checkout_password]').length > 0 && $('input[name=is_guest]').length > 0 && $('input[name=is_guest]:checked').val() > 0) {
+    $('input[name=checkout_password]').prop('disabled', true)
+  }
+
+  $('input[name=is_guest]').click(function () {
+    var val = $('input[name=is_guest]:checked').val()
+    if (val > 0) {
+      $('input[name=checkout_password]').prop('disabled', true)
+    } else {
+      $('input[name=checkout_password]').prop('disabled', false)
+    }
+  })
 })

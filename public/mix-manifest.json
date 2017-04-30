@@ -1,6 +1,7 @@
 {
   "/assets/js/app.js": "/assets/js/app.js",
   "/assets/css/app.css": "/assets/css/app.css",
+  "/assets/js/custom.js": "/assets/js/custom.js",
   "/assets/css/libs.css": "/assets/css/libs.css",
   "/assets/js/all.js": "/assets/js/all.js",
   "/assets/js/libs.js": "/assets/js/libs.js"
