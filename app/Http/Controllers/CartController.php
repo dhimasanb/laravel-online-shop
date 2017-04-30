@@ -54,4 +54,19 @@ class CartController extends Controller
         return redirect('cart')
             ->withCookie(cookie()->forever('cart', $cart));
     }
+
+    public function changeQuantity(Request $request, $product_id)
+    {
+        $this->validate($request, ['quantity' => 'required|integer|min:1']);
+        $quantity = $request->get('quantity');
+        $cart = $this->cart->find($product_id);
+        if (!$cart) return redirect('cart');
+
+        \Flash::success('Jumlah order untuk ' . $cart['detail']['name'] . ' berhasil dirubah.');
+
+        $cart = $request->cookie('cart', []);
+        $cart[$product_id] = $quantity;
+        return redirect('cart')
+            ->withCookie(cookie()->forever('cart', $cart));
+    }
 }
