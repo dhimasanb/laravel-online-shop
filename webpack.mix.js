@@ -31,10 +31,12 @@ mix.copy(
 mix.copy('bower_components/font-awesome/fonts', 'public/fonts')
 mix.copy('bower_components/font-awesome/fonts', 'public/build/fonts')
 
-mix.js([
+mix.js(
          'resources/assets/js/app.js',
-         'resources/assets/js/custom.js'
-    ], 'public/assets/js/app.js')
+         'public/assets/js/app.js')
+    .js([
+           'resources/assets/js/custom.js',
+        ], 'public/assets/js/custom.js')
     .sass('resources/assets/sass/app.scss',
          'public/assets/css/app.css')
    .styles([
