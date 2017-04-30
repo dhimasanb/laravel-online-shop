@@ -85,9 +85,16 @@ class CartController extends Controller
 
         \Flash::success('Jumlah order untuk ' . $cart['detail']['name'] . ' berhasil dirubah.');
 
-        $cart = $request->cookie('cart', []);
-        $cart[$product_id] = $quantity;
-        return redirect('cart')
-            ->withCookie(cookie()->forever('cart', $cart));
+        if (Auth::check()) {
+            $cart = Cart::firstOrCreate(['user_id'=>$request->user()->id, 'product_id'=>$product_id]);
+            $cart->quantity = $quantity;
+            $cart->save();
+            return redirect('cart');
+        } else {
+            $cart = $request->cookie('cart', []);
+            $cart[$product_id] = $quantity;
+            return redirect('cart')
+                ->withCookie(cookie()->forever('cart', $cart));
+        }
     }
 }
