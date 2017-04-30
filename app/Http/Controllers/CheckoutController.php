@@ -32,9 +32,17 @@ class CheckoutController extends Controller
         // check if user exist, if so, ask login
         if ($user = User::where('email', $email)->first()) {
             if ($user->hasPassword()) {
-            // (A) Logic ketika email ada di DB dengan password
+              // (A) Logic ketika email ada di DB dengan password
+              $errors = new MessageBag();
+              $errors->add('checkout_password', 'Alamat email "' . $email . '" sudah terdaftar, silahkan masukan password.');
+              // redirect and change is_guest value
+              return redirect('checkout/login')->withErrors($errors)
+                  ->withInput(compact('email') + ['is_guest' => 0]);
             }
             // (B) Logic ketika email di DB tanpa password
+            // show view to request new password
+            session()->flash('email', $email);
+            return view('checkout.reset-password');
         }
         // (C) Logic ketika email tidak ada di DB
     }
