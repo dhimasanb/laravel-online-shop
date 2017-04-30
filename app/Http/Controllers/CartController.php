@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use Session;
 
 class CartController extends Controller
 {
@@ -16,6 +17,7 @@ class CartController extends Controller
 
          $product = Product::find($request->get('product_id'));
          $quantity = $request->get('quantity');
+         Session::flash('flash_product_name', $product->name);
 
          $cart = $request->cookie('cart', []);
          if (array_key_exists($product->id, $cart)) {
