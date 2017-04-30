@@ -107,6 +107,7 @@
     <script src="{{ mix('assets/js/app.js') }}"></script>
     <script src="{{ mix('assets/js/all.js') }}"></script>
     <script src="{{ mix('assets/js/libs.js') }}"></script>
+    <script src="{{ mix('assets/js/custom.js') }}"></script>
 
     @if (Session::has('flash_product_name'))
       @include('catalogs._product-added', ['product_name' => Session::get('flash_product_name')])
