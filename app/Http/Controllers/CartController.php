@@ -61,10 +61,19 @@ class CartController extends Controller
 
         Flash::success($cart['detail']['name'] . ' berhasil dihapus dari cart.');
 
-        $cart = $request->cookie('cart', []);
-        unset($cart[$product_id]);
-        return redirect('cart')
-            ->withCookie(cookie()->forever('cart', $cart));
+        if (Auth::check()) {
+            $cart = Cart::firstOrCreate([
+                'product_id' => $product_id,
+                'user_id' => $request->user()->id
+            ]);
+            $cart->delete();
+            return redirect('cart');
+        } else {
+            $cart = $request->cookie('cart', []);
+            unset($cart[$product_id]);
+            return redirect('cart')
+                ->withCookie(cookie()->forever('cart', $cart));
+        }
     }
 
     public function changeQuantity(Request $request, $product_id)
