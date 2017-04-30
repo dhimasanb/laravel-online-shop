@@ -13,6 +13,7 @@
       </div>
     </div>
     <div class="col-xs-4">
+      @include('checkout._cart-panel')
     </div>
   </div>
 </div>
