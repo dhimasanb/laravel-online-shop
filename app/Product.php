@@ -17,6 +17,8 @@ class Product extends Model
         static::deleting(function($model) {
             // remove relations to category
             $model->categories()->detach();
+            // remove relation to cart
+            $model->carts()->detach();
         });
     }
 
@@ -40,5 +42,10 @@ class Product extends Model
         } else {
             return 'http://placehold.it/850x618';
         }
+    }
+
+    public function carts()
+    {
+        return $this->hasMany('App\Cart');
     }
 }
