@@ -23,3 +23,4 @@ Route::resource('products', 'ProductsController');
 Route::get('/catalogs', 'CatalogsController@index');
 Route::post('cart', 'CartController@addProduct');
 Route::get('cart', 'CartController@show');
+Route::delete('cart/{product_id}', 'CartController@removeProduct');
