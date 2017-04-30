@@ -24,4 +24,9 @@ class CheckoutController extends Controller
 
         return $this->authenticatedCheckout($email, $password);
     }
+
+    protected function authenticatedCheckout($email, $password)
+    {
+        return 'logic untuk authenticated checkout belum dibuat';
+    }
 }
