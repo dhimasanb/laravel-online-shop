@@ -4,6 +4,8 @@ namespace App\Support;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Auth;
+use App\Cart;
 
 class CartService {
 
@@ -16,7 +18,12 @@ class CartService {
 
     public function lists()
     {
-        return $this->request->cookie('cart');
+        if (Auth::check()) {
+            return Cart::where('user_id', Auth::user()->id)
+                ->pluck('quantity', 'product_id');
+        } else {
+            return $this->request->cookie('cart');
+        }
     }
 
     public function totalProduct()

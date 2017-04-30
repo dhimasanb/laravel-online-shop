@@ -7,6 +7,8 @@ use App\Product;
 use Session;
 use App\Support\CartService;
 use Flash;
+use Auth;
+use App\Cart;
 
 class CartController extends Controller
 {
@@ -28,13 +30,23 @@ class CartController extends Controller
          $quantity = $request->get('quantity');
          Session::flash('flash_product_name', $product->name);
 
-         $cart = $request->cookie('cart', []);
-         if (array_key_exists($product->id, $cart)) {
-             $quantity += $cart[$product->id];
-         }
-         $cart[$product->id] = $quantity;
-         return redirect('catalogs')
-             ->withCookie(cookie()->forever('cart', $cart));
+         if (Auth::check()) {
+            $cart = Cart::firstOrCreate([
+                'product_id' => $product->id,
+                'user_id' => $request->user()->id
+            ]);
+            $cart->quantity += $quantity;
+            $cart->save();
+            return redirect('catalogs');
+        } else {
+            $cart = $request->cookie('cart', []);
+            if (array_key_exists($product->id, $cart)) {
+                $quantity += $cart[$product->id];
+            }
+            $cart[$product->id] = $quantity;
+            return redirect('catalogs')
+                ->withCookie(cookie()->forever('cart', $cart));
+        }
      }
 
     public function show()
