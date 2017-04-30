@@ -5,9 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use Session;
+use App\Support\CartService;
+use Flash;
 
 class CartController extends Controller
 {
+    protected $cart;
+
+    public function __construct(CartService $cart)
+    {
+        $this->cart = $cart;
+    }
+
     public function addProduct(Request $request)
      {
          $this->validate($request, [
@@ -31,5 +40,18 @@ class CartController extends Controller
     public function show()
     {
         return view('carts.index');
+    }
+
+    public function removeProduct(Request $request, $product_id)
+    {
+        $cart = $this->cart->find($product_id);
+        if (!$cart) return redirect('cart');
+
+        Flash::success($cart['detail']['name'] . ' berhasil dihapus dari cart.');
+
+        $cart = $request->cookie('cart', []);
+        unset($cart[$product_id]);
+        return redirect('cart')
+            ->withCookie(cookie()->forever('cart', $cart));
     }
 }
