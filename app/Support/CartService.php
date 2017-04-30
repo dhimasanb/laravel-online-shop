@@ -6,6 +6,7 @@ use App\Product;
 use Illuminate\Http\Request;
 use Auth;
 use App\Cart;
+use Cookie;
 
 class CartService {
 
@@ -81,6 +82,20 @@ class CartService {
             if ($order['id'] == $product_id) return $order;
         }
         return null;
+    }
+
+    public function merge()
+    {
+        $cart_cookie = $this->request->cookie('cart', []);
+        foreach ($cart_cookie as $product_id => $quantity) {
+            $cart = Cart::firstOrCreate([
+                'user_id' => $this->request->user()->id,
+                'product_id' => $product_id]);
+            $cart->quantity = $cart->quantity > 0 ? $cart->quantity : $quantity;
+            $cart->save();
+        }
+
+        return Cookie::forget('cart');
     }
 
 }
