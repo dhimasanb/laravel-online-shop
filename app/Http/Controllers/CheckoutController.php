@@ -45,6 +45,9 @@ class CheckoutController extends Controller
             return view('checkout.reset-password');
         }
         // (C) Logic ketika email tidak ada di DB
+        // save user data to session
+        session(['checkout.email' => $email]);
+        return redirect('checkout/address');
     }
 
     protected function authenticatedCheckout($email, $password)
