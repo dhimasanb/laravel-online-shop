@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Auth;
 
 class CheckoutAddressRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class CheckoutAddressRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +24,14 @@ class CheckoutAddressRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        $new_address_rules = [
+            'name' => 'required',
+            'detail' => 'required',
+            'province_id' => 'required|exists:provinces,id',
+            'regency_id' => 'required|exists:regencies,id',
+            'phone' => 'required|digits_between:9,15'
         ];
+
+        return $new_address_rules;
     }
 }
