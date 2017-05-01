@@ -17,7 +17,7 @@
 <div class="form-group {!! $errors->has('province_id') ? 'has-error' : '' !!}">
   {!! Form::label('province_id', 'Provinsi', ['class' => 'col-md-4 control-label']) !!}
   <div class="col-md-6">
-    {!! Form::select('province_id', [''=>'']+DB::table('provinces')->pluck('name','id'), null, ['class'=>'form-control']) !!}
+    {{-- {!! Form::select('province_id', ['' => '']+DB::table('provinces')->pluck('name','id'), null, ['class'=>'form-control', 'id' => 'province_selector']) !!} --}}
     {!! $errors->first('province_id', '<p class="help-block">:message</p>') !!}
   </div>
 </div>
@@ -25,7 +25,9 @@
 <div class="form-group {!! $errors->has('regency_id') ? 'has-error' : '' !!}">
   {!! Form::label('regency_id', 'Kabupaten / Kota', ['class' => 'col-md-4 control-label']) !!}
   <div class="col-md-6">
-    {!! Form::select('regency_id', [], old('regency_id'), ['class'=>'form-control']) !!}
+    {!! Form::select('regency_id',
+      old('province_id') !== null ? DB::table('regencies')->where('province_id', old('province_id'))->pluck('name', 'id') : [],
+      old('regency_id'), ['class'=>'form-control', 'id' => 'regency_selector']) !!}
     {!! $errors->first('regency_id', '<p class="help-block">:message</p>') !!}
   </div>
 </div>
