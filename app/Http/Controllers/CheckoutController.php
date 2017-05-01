@@ -54,4 +54,9 @@ class CheckoutController extends Controller
     {
         return 'logic untuk authenticated checkout belum dibuat';
     }
+
+    public function address()
+    {
+        return view('checkout.address');
+    }
 }
