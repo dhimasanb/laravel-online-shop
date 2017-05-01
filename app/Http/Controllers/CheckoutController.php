@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CheckoutLoginRequest;
 use Illuminate\Support\MessageBag;
 use App\User;
+use App\Http\Requests\CheckoutAddressRequest;
+use Auth;
 
 class CheckoutController extends Controller
 {
@@ -58,5 +60,33 @@ class CheckoutController extends Controller
     public function address()
     {
         return view('checkout.address');
+    }
+
+    public function postAddress(CheckoutAddressRequest $request)
+    {
+        if (Auth::check()) return $this->authenticatedAddress($request);
+        return $this->guestAddress($request);
+    }
+
+    protected function authenticatedAddress(CheckoutAddressRequest $request)
+    {
+        return "Akan diisi untuk logic authenticated address";
+    }
+
+    protected function guestAddress(CheckoutAddressRequest $request)
+    {
+        $this->saveAddressSession($request);
+        return redirect('checkout/payment');
+    }
+
+    protected function saveAddressSession(CheckoutAddressRequest $request)
+    {
+        session([
+            'checkout.address.name' => $request->get('name'),
+            'checkout.address.detail' => $request->get('detail'),
+            'checkout.address.province_id' => $request->get('province_id'),
+            'checkout.address.regency_id' => $request->get('regency_id'),
+            'checkout.address.phone' => $request->get('phone')
+        ]);
     }
 }
