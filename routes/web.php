@@ -27,3 +27,6 @@ Route::delete('cart/{product_id}', 'CartController@removeProduct');
 Route::put('cart/{product_id}', 'CartController@changeQuantity');
 Route::get('checkout/login', 'CheckoutController@login');
 Route::post('checkout/login', 'CheckoutController@postLogin');
+Route::get('checkout/address', function() {
+    return "Email customer " . session()->get('checkout.email');
+});
