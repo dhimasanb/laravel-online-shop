@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2d9db57d2427678301e58f1de4cc168e",
+    "content-hash": "890d31e1c1dc297fd842997415f32c9b",
     "packages": [
         {
             "name": "barryvdh/laravel-debugbar",
@@ -1193,6 +1193,47 @@
                 "uuid"
             ],
             "time": "2017-03-26T20:37:53+00:00"
+        },
+        {
+            "name": "rizalafani/rajaongkirlaravel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rizalafani/rajaongkirlaravel.git",
+                "reference": "a01c4297b8d04e8c5e32ce008fbce146474426b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rizalafani/rajaongkirlaravel/zipball/a01c4297b8d04e8c5e32ce008fbce146474426b0",
+                "reference": "a01c4297b8d04e8c5e32ce008fbce146474426b0",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5"
+            },
+            "type": "package",
+            "autoload": {
+                "psr-4": {
+                    "rizalafani\\rajaongkirlaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ahmad Rizal Afani",
+                    "email": "ahmadrizalafani@gmail.com"
+                }
+            ],
+            "description": "Raja Ongkir API Laravel 5",
+            "keywords": [
+                "application programming interface",
+                "laravel",
+                "rajaongkir"
+            ],
+            "time": "2016-04-24 22:20:24"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3551,7 +3592,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "rizalafani/rajaongkirlaravel": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
