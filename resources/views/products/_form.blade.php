@@ -10,6 +10,12 @@
   {!! $errors->first('model', '<p class="help-block">:message</p>') !!}
 </div>
 
+<div class="form-group {!! $errors->has('weight') ? 'has-error' : '' !!}">
+  {!! Form::label('weight', 'Weight (gram)') !!}
+  {!! Form::number('weight', null, ['class'=>'form-control']) !!}
+  {!! $errors->first('weight', '<p class="help-block">:message</p>') !!}
+</div>
+
 <div class="form-group {!! $errors->has('price') ? 'has-error' : '' !!}">
   {!! Form::label('price', 'Price') !!}
   {!! Form::text('price', null, ['class'=>'form-control']) !!}

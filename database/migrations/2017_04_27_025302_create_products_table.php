@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->string('photo');
             $table->string('model');
+            $table->decimal('weight', 8, 2);
             $table->decimal('price', 10, 2); // max XX,XXX,XXX.XX
             $table->timestamps();
         });

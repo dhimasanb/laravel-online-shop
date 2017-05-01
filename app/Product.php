@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Fee;
 
 class Product extends Model
 {
-    protected $fillable = ['name', 'photo', 'model', 'price'];
+    protected $fillable = ['name', 'photo', 'model', 'price', 'weight'];
 
     protected $appends = ['photo_path'];
 
@@ -47,5 +48,16 @@ class Product extends Model
     public function carts()
     {
         return $this->hasMany('App\Cart');
+    }
+
+    public function getCostTo($destination_id)
+    {
+        return Fee::getCost(
+            config('rajaongkir.origin'),
+            $destination_id,
+            $this->weight,
+            config('rajaongkir.courier'),
+            config('rajaongkir.service')
+        );
     }
 }
