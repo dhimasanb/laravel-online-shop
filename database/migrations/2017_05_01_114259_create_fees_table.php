@@ -14,8 +14,14 @@ class CreateFeesTable extends Migration
     public function up()
     {
         Schema::create('fees', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+          $table->increments('id');
+          $table->integer('origin');
+          $table->integer('destination');
+          $table->string('courier');
+          $table->string('service');
+          $table->integer('weight');
+          $table->integer('cost')->nullable();
+          $table->timestamps();
         });
     }
 
