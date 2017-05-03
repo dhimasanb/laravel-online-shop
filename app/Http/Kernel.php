@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'role' => \App\Http\Middleware\Role::class,
         'checkout.have-cart' => \App\Http\Middleware\CheckoutHaveCart::class,
+        'checkout.login-step-done' => \App\Http\Middleware\CheckoutLoginStepDone::class,
     ];
 }
