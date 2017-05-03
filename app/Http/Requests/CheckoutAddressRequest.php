@@ -32,6 +32,15 @@ class CheckoutAddressRequest extends FormRequest
             'phone' => 'required|digits_between:9,15'
         ];
 
+        if (Auth::check()) {
+          $address_limit = implode(',', Auth::user()->addresses->lists('id')->all()) . ',new-address';
+          $rules = ['address_id' => 'required|in:' . $address_limit];
+          if ($this->get('address_id') == 'new-address') {
+            return $rules += $new_address_rules;
+        }
+            return $rules;
+        }
+
         return $new_address_rules;
     }
 }
