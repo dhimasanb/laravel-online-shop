@@ -31,4 +31,9 @@ class User extends Authenticatable
     {
         return $this->password !== '';
     }
+
+    public function addresses()
+    {
+        return $this->hasMany('App\Address');
+    }
 }
