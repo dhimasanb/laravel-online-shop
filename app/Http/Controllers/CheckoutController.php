@@ -167,4 +167,23 @@ class CheckoutController extends Controller
         ]);
     }
 
+    protected function makeOrder($user_id, $bank, $sender, Address $address, $cart)
+    {
+        $status = 'waiting-payment';
+        $address_id = $address->id;
+        $order = Order::create(compact('user_id', 'address_id', 'bank', 'sender', 'status'));
+        foreach ($cart as $product) {
+            OrderDetail::create([
+                'order_id' => $order->id,
+                'address_id' => $address->id,
+                'product_id' => $product['id'],
+                'quantity' => $product['quantity'],
+                'price' => $product['detail']['price'],
+                'fee' => Product::find($product['id'])->getCostTo($address->regency_id)
+            ]);
+        }
+
+        return Order::find($order->id);
+    }
+
 }
