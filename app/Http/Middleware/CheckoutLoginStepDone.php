@@ -13,8 +13,12 @@ class CheckoutLoginStepDone
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-        return $next($request);
-    }
+     public function handle($request, Closure $next)
+     {
+         if (auth()->guest() && !session()->has('checkout.email')) {
+            return redirect('checkout/login');
+         }
+         
+         return $next($request);
+     }
 }
