@@ -94,4 +94,20 @@ class CheckoutController extends Controller
     {
         return view('checkout.payment');
     }
+
+    public function postPayment(Request $request)
+    {
+        $this->validate($request, [
+            'bank_name' => 'required|in:' . implode(',',array_keys(config('bank-accounts'))),
+            'sender' => 'required'
+        ]);
+
+        session([
+            'checkout.payment.bank' => $request->get('bank_name'),
+            'checkout.payment.sender' => $request->get('sender')
+        ]);
+
+        if (Auth::check()) return $this->authenticatedPayment($request);
+        return $this->guestPayment($request);
+    }
 }
