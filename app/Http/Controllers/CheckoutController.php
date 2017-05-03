@@ -8,9 +8,21 @@ use Illuminate\Support\MessageBag;
 use App\User;
 use App\Http\Requests\CheckoutAddressRequest;
 use Auth;
+use App\Address;
+use App\Product;
+use App\Support\CartService;
+use App\Order;
+use App\OrderDetail;
 
 class CheckoutController extends Controller
 {
+    protected $cart;
+
+    public function __construct(CartService $cart)
+    {
+        $this->cart = $cart;
+    }
+
     public function login()
     {
         return view('checkout.login');
@@ -114,5 +126,25 @@ class CheckoutController extends Controller
     protected function authenticatedPayment(Request $request)
     {
         return "akan diisi dengan logic authenticated payment";
+    }
+
+    protected function guestPayment(Request $request)
+    {
+        // create user account
+        $user = $this->setupCustomer(session('checkout.email'), session('checkout.address.name'));
+
+        // create address
+        $bank = session('checkout.payment.bank');
+        $sender = session('checkout.payment.sender');
+        $address = $this->setupAddress($user, session('checkout.address'));
+
+        // create record
+        $order = $this->makeOrder($user->id, $bank, $sender, $address, $this->cart->details());
+
+        // delete session data
+        session()->forget('checkout');
+        $deleteCartCookie = $this->cart->clearCartCookie();
+        return redirect('checkout/success')->with(compact('order'))
+            ->withCookie($deleteCartCookie);
     }
 }
