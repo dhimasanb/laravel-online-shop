@@ -32,4 +32,9 @@ class Order extends Model
         $this->total_payment = $total_payment;
         $this->save();
     }
+
+    public function getPaddedIdAttribute()
+    {
+        return str_pad($this->id, 6, 0, STR_PAD_LEFT);
+    }
 }
