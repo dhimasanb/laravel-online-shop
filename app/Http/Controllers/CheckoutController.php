@@ -25,7 +25,11 @@ class CheckoutController extends Controller
 
     public function login()
     {
-        return view('checkout.login');
+        if (Auth::check()) {
+            return redirect('/checkout/address');
+        } else {
+            return view('checkout.login');
+        }
     }
 
     public function postLogin(CheckoutLoginRequest $request)
@@ -66,7 +70,19 @@ class CheckoutController extends Controller
 
     protected function authenticatedCheckout($email, $password)
     {
-        return 'logic untuk authenticated checkout belum dibuat';
+        // login
+        if (!Auth::attempt(['email' => $email, 'password' => $password])) {
+            // Authentication failed..
+            $errors = new MessageBag();
+            $errors->add('email', 'Data user yang dimasukan salah');
+            return redirect('checkout/login')
+                ->withInput(compact('email', 'password') + ['is_guest' => 0])
+                ->withErrors($errors);
+        }
+
+        // logged in, merge cart (destroy cart cookie)
+        $deleteCartCookie = $this->cart->merge();
+        return redirect('checkout/address')->withCookie($deleteCartCookie);
     }
 
     public function address()
