@@ -47,4 +47,9 @@ class Order extends Model
             'finished' => 'Paket diterima'
         ];
     }
+
+    public function getHumanStatusAttribute()
+    {
+        return static::statusList()[$this->status];
+    }
 }
