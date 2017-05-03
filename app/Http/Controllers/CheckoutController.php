@@ -147,4 +147,13 @@ class CheckoutController extends Controller
         return redirect('checkout/success')->with(compact('order'))
             ->withCookie($deleteCartCookie);
     }
+
+    protected function setupCustomer($email, $name)
+    {
+        $user = User::create(compact('email', 'name'));
+        $user->role = 'customer';
+        $user->save();
+        return $user;
+    }
+
 }
