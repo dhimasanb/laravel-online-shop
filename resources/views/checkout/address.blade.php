@@ -8,7 +8,11 @@
       <div class="panel panel-default">
           <div class="panel-heading">Alamat Pengiriman</div>
           <div class="panel-body">
-            @include('checkout._address-new-form')
+            @if (auth()->check())
+              @include('checkout._address-choose-form')
+            @else
+              @include('checkout._address-new-form')
+            @endif
           </div>
       </div>
     </div>
