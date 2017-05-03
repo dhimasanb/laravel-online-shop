@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\Role::class,
         'checkout.have-cart' => \App\Http\Middleware\CheckoutHaveCart::class,
         'checkout.login-step-done' => \App\Http\Middleware\CheckoutLoginStepDone::class,
+        'checkout.address-step-done' => \App\Http\Middleware\CheckoutAddressStepDone::class,
     ];
 }
