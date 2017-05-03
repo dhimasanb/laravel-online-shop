@@ -22,4 +22,14 @@ class Order extends Model
     {
         return $this->belongsTo('App\Address');
     }
+
+    public function refreshTotalPayment()
+    {
+        $total_payment = 0;
+        foreach($this->details as $detail) {
+            $total_payment += $detail->total_price;
+        }
+        $this->total_payment = $total_payment;
+        $this->save();
+    }
 }
