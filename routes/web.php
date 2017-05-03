@@ -37,9 +37,10 @@ Route::post('checkout/address', 'CheckoutController@postAddress');
 });*/
 Route::get('checkout/payment', 'CheckoutController@payment');
 Route::post('checkout/payment', 'CheckoutController@postPayment');
-Route::get('checkout/success', function() {
+/* Route::get('checkout/success', function() {
     return session()->get('order');
-});
+});*/
+Route::get('checkout/success', 'CheckoutController@success');
 
 Route::group(['middleware' => 'api'], function () {
     Route::get('address/regencies', 'AddressController@regencies');
