@@ -63,20 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 41);
+/******/ 	return __webpack_require__(__webpack_require__.s = 42);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 41:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(9);
-
-
-/***/ }),
-
-/***/ 9:
+/***/ 10:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
@@ -94,9 +86,8 @@ $(document).ready(function () {
       confirmButtonColor: '#DD6B55',
       confirmButtonText: 'Yap, lanjutkan!',
       cancelButtonText: 'Batal',
-      closeOnConfirm: false
+      closeOnConfirm: true
     }, function () {
-      swal("Dihapus!", "Berhasil dihapus.", "success");
       $form.submit();
     });
   });
@@ -104,7 +95,6 @@ $(document).ready(function () {
   $('.js-selectize').selectize({
     sortField: 'text'
   });
-
   // checkout login form
   if ($('input[name=checkout_password]').length > 0 && $('input[name=is_guest]').length > 0 && $('input[name=is_guest]:checked').val() > 0) {
     $('input[name=checkout_password]').prop('disabled', true);
@@ -119,6 +109,24 @@ $(document).ready(function () {
     }
   });
 
+  // dynamically hide new address form for authenticated user
+  if ($('input[name="address_id"]').length > 0) {
+    var selected = $('input[name="address_id"]:checked').val();
+    if (selected === 'undefined' || selected !== 'new-address') {
+      $('#js-new-address').hide();
+    }
+
+    $('input[name="address_id"]').change(function () {
+      var selected = $('input[name="address_id"]:checked').val();
+      if (selected === 'new-address') {
+        $('#js-new-address').show();
+      } else {
+        $('#js-new-address').hide();
+      }
+    });
+  }
+
+  // checkout address new form
   if ($('#province_selector').length > 0) {
     var xhr;
     var province_selector, $province_selector;
@@ -160,6 +168,14 @@ $(document).ready(function () {
     regency_selector = $regency_selector[0].selectize;
   }
 });
+
+/***/ }),
+
+/***/ 42:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(10);
+
 
 /***/ })
 
