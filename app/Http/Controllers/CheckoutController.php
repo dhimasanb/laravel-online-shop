@@ -89,4 +89,9 @@ class CheckoutController extends Controller
             'checkout.address.phone' => $request->get('phone')
         ]);
     }
+
+    public function payment()
+    {
+        return view('checkout.payment');
+    }
 }
