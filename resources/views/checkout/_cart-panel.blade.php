@@ -24,10 +24,21 @@
         @endforeach
       </tbody>
       <tfoot>
+        @if(request()->is('checkout/payment'))
+          <tr>
+            <td data-th="Subtotal"><strong>Ongkos Kirim</strong></td>
+            {{-- <td data-th="Subtotal" class="text-right" colspan="2"><strong>Rp{{ number_format($cart->shippingFee()) }}</strong></td> --}}
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            {{-- <td class="text-right" colspan="2"><strong>Rp{{ number_format($cart->totalPrice() + $cart->shippingFee()) }}</strong></td> --}}
+          </tr>
+        @else
         <tr>
           <td><strong>Total</strong></td>
           <td class="text-right" colspan="2"><strong>Rp{{ number_format($cart->totalPrice()) }}</strong></td>
         </tr>
+        @endif
       </tfoot>
     </table>
     </div>
