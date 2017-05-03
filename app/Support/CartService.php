@@ -17,7 +17,7 @@ class CartService {
         $this->request = $request;
     }
 
-    public function lists()
+    public function pluck()
     {
         if (Auth::check()) {
             return Cart::where('user_id', Auth::user()->id)
@@ -29,7 +29,7 @@ class CartService {
 
     public function totalProduct()
     {
-        return count($this->lists());
+        return count($this->pluck());
     }
 
     public function isEmpty()
@@ -41,7 +41,7 @@ class CartService {
     {
         $total = 0;
         if ($this->totalProduct() > 0) {
-            foreach ($this->lists() as $id => $quantity) {
+            foreach ($this->pluck() as $id => $quantity) {
                 $product = Product::find($id);
                 $total += $quantity;
             }
@@ -53,7 +53,7 @@ class CartService {
     {
         $result = [];
         if ($this->totalProduct() > 0) {
-            foreach ($this->lists() as $id => $quantity) {
+            foreach ($this->pluck() as $id => $quantity) {
                 $product = Product::find($id);
                 array_push($result, [
                     'id' => $id,
@@ -97,5 +97,20 @@ class CartService {
 
         return Cookie::forget('cart');
     }
+
+     protected function getDestinationId()
+     {
+         return session('checkout.address.regency_id');
+     }
+
+     public function shippingFee()
+     {
+         $totalFee = 0;
+         foreach ($this->pluck() as $id => $quantity) {
+             $fee = Product::find($id)->getCostTo($this->getDestinationId()) * $quantity;
+             $totalFee += $fee;
+         }
+         return $totalFee;
+     }
 
 }
