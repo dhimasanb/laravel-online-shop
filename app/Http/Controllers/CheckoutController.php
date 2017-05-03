@@ -21,6 +21,11 @@ class CheckoutController extends Controller
     public function __construct(CartService $cart)
     {
         $this->cart = $cart;
+
+        $this->middleware('checkout.have-cart', [
+            'only' => ['login', 'postLogin', 'address', 'postAddress',
+            'payment', 'postPayment']
+        ]);
     }
 
     public function login()
