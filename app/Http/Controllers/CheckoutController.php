@@ -110,4 +110,9 @@ class CheckoutController extends Controller
         if (Auth::check()) return $this->authenticatedPayment($request);
         return $this->guestPayment($request);
     }
+
+    protected function authenticatedPayment(Request $request)
+    {
+        return "akan diisi dengan logic authenticated payment";
+    }
 }
