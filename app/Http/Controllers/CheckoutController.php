@@ -156,4 +156,15 @@ class CheckoutController extends Controller
         return $user;
     }
 
+    protected function setupAddress(User $customer, $addressSession)
+    {
+        return Address::create([
+            'user_id' => $customer->id,
+            'name' => $addressSession['name'],
+            'detail' => $addressSession['detail'],
+            'regency_id' => $addressSession['regency_id'],
+            'phone' => $addressSession['phone']
+        ]);
+    }
+
 }
