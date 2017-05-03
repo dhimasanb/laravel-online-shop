@@ -13,8 +13,12 @@ class CheckoutAddressStepDone
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
-    {
-        return $next($request);
-    }
+     public function handle($request, Closure $next)
+     {
+         if (!session()->has('checkout.address')) {
+            return redirect('checkout/address');
+         }
+
+         return $next($request);
+     }
 }
