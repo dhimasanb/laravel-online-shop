@@ -98,7 +98,15 @@ class CheckoutController extends Controller
 
     protected function authenticatedAddress(CheckoutAddressRequest $request)
     {
-        return "Akan diisi untuk logic authenticated address";
+        $address_id = $request->get('address_id');
+        // clear old
+        session()->forget('checkout.address');
+        if ($address_id == 'new-address') {
+            $this->saveAddressSession($request);
+        } else {
+            session(['checkout.address.address_id' => $address_id]);
+        }
+        return redirect('checkout/payment');
     }
 
     protected function guestAddress(CheckoutAddressRequest $request)
@@ -141,7 +149,16 @@ class CheckoutController extends Controller
 
     protected function authenticatedPayment(Request $request)
     {
-        return "akan diisi dengan logic authenticated payment";
+        $user = Auth::user();
+        $bank = session('checkout.payment.bank');
+        $sender = session('checkout.payment.sender');
+        $address = $this->setupAddress($user, session('checkout.address'));
+        $order = $this->makeOrder($user->id, $bank, $sender, $address, $this->cart->details());
+
+        // delete session data
+        session()->forget('checkout');
+        $this->cart->clearCartRecord();
+        return redirect('checkout/success')->with(compact('order'));
     }
 
     protected function guestPayment(Request $request)
@@ -174,6 +191,10 @@ class CheckoutController extends Controller
 
     protected function setupAddress(User $customer, $addressSession)
     {
+        if (Auth::check() && isset($addressSession['address_id'])) {
+            return Address::find($addressSession['address_id']);
+        }
+
         return Address::create([
             'user_id' => $customer->id,
             'name' => $addressSession['name'],
