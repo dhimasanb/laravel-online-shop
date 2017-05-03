@@ -5,26 +5,24 @@ $(document).ready(function () {
     var $el = $(this)
     var text = $el.data('confirm-message') ? $el.data('confirm-message') : 'Kamu tidak akan bisa membatalkan proses ini!'
 
-  swal({
-    title: 'Kamu yakin?',
-    text: text,
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#DD6B55',
-    confirmButtonText: 'Yap, lanjutkan!',
-    cancelButtonText: 'Batal',
-    closeOnConfirm: false
+    swal({
+      title: 'Kamu yakin?',
+      text: text,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#DD6B55',
+      confirmButtonText: 'Yap, lanjutkan!',
+      cancelButtonText: 'Batal',
+      closeOnConfirm: true
     },
-    function () {
-      swal("Dihapus!", "Berhasil dihapus.", "success");
-      $form.submit()
-    })
+      function () {
+        $form.submit()
+      })
   })
 
   $('.js-selectize').selectize({
     sortField: 'text'
   })
-
   // checkout login form
   if ($('input[name=checkout_password]').length > 0 && $('input[name=is_guest]').length > 0 && $('input[name=is_guest]:checked').val() > 0) {
     $('input[name=checkout_password]').prop('disabled', true)
@@ -39,6 +37,24 @@ $(document).ready(function () {
     }
   })
 
+  // dynamically hide new address form for authenticated user
+  if ($('input[name="address_id"]').length > 0) {
+    var selected = $('input[name="address_id"]:checked').val()
+    if (selected === 'undefined' || selected !== 'new-address') {
+      $('#js-new-address').hide()
+    }
+
+    $('input[name="address_id"]').change(function () {
+      var selected = $('input[name="address_id"]:checked').val()
+      if (selected === 'new-address') {
+        $('#js-new-address').show()
+      } else {
+        $('#js-new-address').hide()
+      }
+    })
+  }
+
+  // checkout address new form
   if ($('#province_selector').length > 0) {
     var xhr
     var province_selector, $province_selector
