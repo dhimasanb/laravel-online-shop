@@ -26,4 +26,16 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function viewOrders(Request $request)
+    {
+        $q = $request->get('q');
+        $status = $request->get('status');
+        $orders = auth()->user()->orders()
+            ->where('id', 'LIKE', '%'. $q . '%')
+            ->where('status', 'LIKE', '%' . $status . '%')
+            ->orderBy('updated_at')
+            ->paginate(5);
+        return view('customer.view-orders')->with(compact('orders', 'q', 'status'));
+    }
 }
