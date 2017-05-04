@@ -66,6 +66,8 @@
 
                        @include('layouts._customer-feature', ['partial_view'=>'layouts._cart-menu-bar'])
 
+                       @include('layouts._customer-feature', ['partial_view'=>'layouts._check-order-menu-bar', 'data'=>[]])
+
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>
