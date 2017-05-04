@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Order;
 
 class OrdersController extends Controller
 {
@@ -11,15 +12,16 @@ class OrdersController extends Controller
         $this->middleware('auth');
         $this->middleware('role:admin');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $orders = Order::paginate(10);
+        return view('orders.index', compact('orders'));
     }
 
     /**
