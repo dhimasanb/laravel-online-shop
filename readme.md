@@ -13,6 +13,7 @@ Example Laravel 5.4 Online Shop
 * [Webpack](https://webpack.github.io/) - Module Bundler
 
 ## Whats Next?
+
 * Sign up dengan facebook
 * Fitur wishlist
 * Fitur stock
