@@ -46,6 +46,8 @@ Route::resource('orders', 'OrdersController', ['only' => [
     'index', 'edit', 'update'
 ]]);
 
+Route::get('/home/orders', 'HomeController@viewOrders');
+
 Route::group(['middleware' => 'api'], function () {
     Route::get('address/regencies', 'AddressController@regencies');
 });
