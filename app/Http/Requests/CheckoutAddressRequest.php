@@ -33,7 +33,7 @@ class CheckoutAddressRequest extends FormRequest
         ];
 
         if (Auth::check()) {
-          $address_limit = implode(',', Auth::user()->addresses->lists('id')->all()) . ',new-address';
+          $address_limit = implode(',', Auth::user()->addresses->pluck('id')->all()) . ',new-address';
           $rules = ['address_id' => 'required|in:' . $address_limit];
           if ($this->get('address_id') == 'new-address') {
             return $rules += $new_address_rules;
