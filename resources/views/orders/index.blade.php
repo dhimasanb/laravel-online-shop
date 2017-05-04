@@ -4,6 +4,16 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+        {!! Form::open(['url' => 'orders', 'method'=>'get', 'class'=>'form-inline']) !!}
+
+            <div class="form-group {!! $errors->has('status') ? 'has-error' : '' !!}">
+              {!! Form::select('status', [''=>'Semua status']+App\Order::statusList(),
+                isset($status) ? $status : null, ['class'=>'form-control']) !!}
+              {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
+            </div>
+
+          {!! Form::submit('Cari', ['class'=>'btn btn-primary']) !!}
+        {!! Form::close() !!}
         <table class="table table-hover">
           <thead>
             <tr>
@@ -34,7 +44,7 @@
             @endforelse
           </tbody>
         </table>
-        {!! $orders->links() !!}
+        {!! $orders->appends(compact('status'))->links() !!}
       </div>
     </div>
   </div>

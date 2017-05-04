@@ -20,8 +20,10 @@ class OrdersController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::paginate(10);
-        return view('orders.index', compact('orders'));
+        $status = $request->get('status');
+        $orders = Order::where('status', 'LIKE', '%'.$status.'%')
+        ->paginate(10);
+        return view('orders.index', compact('orders', 'status'));
     }
 
     /**
