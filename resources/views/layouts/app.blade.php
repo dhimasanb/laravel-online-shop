@@ -54,6 +54,7 @@
                           <ul class="dropdown-menu" role="menu">
                             <li><a href="{{ route('categories.index') }}"><i class="fa fa-btn fa-tags"></i>Categories</a></li>
                             <li><a href="{{ route('products.index') }}"><i class="fa fa-btn fa-gift"></i>Products</a></li>
+                            <li><a href="{{ route('orders.index') }}"><i class="fa fa-btn fa-shopping-cart"></i>Orders</a></li>
                             </ul>
                           </li>
                         @endcan
