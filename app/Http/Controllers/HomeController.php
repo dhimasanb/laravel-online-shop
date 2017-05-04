@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['only'=>['index', 'viewOrders']]);
+        $this->middleware('role:customer', ['only' => 'viewOrders']);
     }
 
     /**
