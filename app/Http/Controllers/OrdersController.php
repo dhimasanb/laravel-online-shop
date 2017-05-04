@@ -75,7 +75,8 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        return view('orders.edit')->with(compact('order'));
     }
 
     /**
