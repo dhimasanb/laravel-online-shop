@@ -32,7 +32,7 @@
           <tbody>
             @forelse($orders as $order)
             <tr>
-              <td>{{ $order->padded_id }}</td>
+              <td><a href="{{ route('orders.edit', $order->id)}}">{{ $order->padded_id }}</a></td>
               <td>{{ $order->user->name }}</td>
               <td>{{ $order->human_status }}</td>
               <td>
