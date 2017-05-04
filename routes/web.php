@@ -11,16 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::resource('categories', 'CategoriesController');
 Route::resource('products', 'ProductsController');
-Route::get('/catalogs', 'CatalogsController@index');
+Route::get('/', 'CatalogsController@index');
 Route::post('cart', 'CartController@addProduct');
 Route::get('cart', 'CartController@show');
 Route::delete('cart/{product_id}', 'CartController@removeProduct');
