@@ -42,6 +42,10 @@ Route::post('checkout/payment', 'CheckoutController@postPayment');
 });*/
 Route::get('checkout/success', 'CheckoutController@success');
 
+Route::resource('orders', 'OrdersController', ['only' => [
+    'index', 'edit', 'update'
+]]);
+
 Route::group(['middleware' => 'api'], function () {
     Route::get('address/regencies', 'AddressController@regencies');
 });
