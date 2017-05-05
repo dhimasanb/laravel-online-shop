@@ -64,9 +64,9 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
 
-                       @include('layouts._customer-feature', ['partial_view'=>'layouts._cart-menu-bar'])
+                      @include('layouts._customer-feature', ['partial_view'=>'layouts._check-order-menu-bar', 'data'=>[]])
 
-                       @include('layouts._customer-feature', ['partial_view'=>'layouts._check-order-menu-bar', 'data'=>[]])
+                      @include('layouts._customer-feature', ['partial_view'=>'layouts._cart-menu-bar'])
 
                         <!-- Authentication Links -->
                         @if (Auth::guest())
