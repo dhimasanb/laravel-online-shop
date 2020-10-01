@@ -1,4 +1,4 @@
-# Laravel Online Shop
+# Laravel E Commerce Website
 
 Example Laravel 5.4 Online Shop
 
