@@ -1,10 +1,20 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use RajaOngkir;
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use rizalafani\rajaongkirlaravel\RajaOngkir;
 
+/**
+ * App\Models\Province
+ *
+ * @method static Builder|Province newModelQuery()
+ * @method static Builder|Province newQuery()
+ * @method static Builder|Province query()
+ * @mixin Eloquent
+ */
 class Province extends Model
 {
     protected $fillable = ['id', 'name'];

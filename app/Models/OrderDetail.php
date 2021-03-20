@@ -1,9 +1,21 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\OrderDetail
+ *
+ * @property-read \App\Order $order
+ * @property-read \App\Product $product
+ * @method static Builder|OrderDetail newModelQuery()
+ * @method static Builder|OrderDetail newQuery()
+ * @method static Builder|OrderDetail query()
+ * @mixin Eloquent
+ */
 class OrderDetail extends Model
 {
     protected $table = 'order_details';
@@ -31,11 +43,11 @@ class OrderDetail extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo(Product::class);
     }
 
     public function order()
     {
-        return $this->belongsTo('App\Order');
+        return $this->belongsTo(Order::class);
     }
 }
