@@ -1,10 +1,28 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use App\Fee;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * App\Models\Product
+ *
+ * @property-read Collection|\App\Cart[] $carts
+ * @property-read int|null $carts_count
+ * @property-read Collection|\App\Category[] $categories
+ * @property-read int|null $categories_count
+ * @property-read mixed $category_lists
+ * @property-read mixed $photo_path
+ * @method static Builder|Product newModelQuery()
+ * @method static Builder|Product newQuery()
+ * @method static Builder|Product query()
+ * @mixin Eloquent
+ */
 class Product extends Model
 {
     protected $fillable = ['name', 'photo', 'model', 'price', 'weight'];
@@ -23,12 +41,12 @@ class Product extends Model
         });
     }
 
-    public function categories()
+    public function categories(): BelongsToMany
     {
-        return $this->belongsToMany('App\Category');
+        return $this->belongsToMany(Category::class);
     }
 
-    public function getCategoryListsAttribute()
+    public function getCategoryListsAttribute(): ?array
     {
         if ($this->categories()->count() < 1) {
             return null;
@@ -45,9 +63,9 @@ class Product extends Model
         }
     }
 
-    public function carts()
+    public function carts(): HasMany
     {
-        return $this->hasMany('App\Cart');
+        return $this->hasMany(Cart::class);
     }
 
     public function getCostTo($destination_id)

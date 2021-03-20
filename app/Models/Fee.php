@@ -1,12 +1,22 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use Eloquent;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use RajaOngkir;
 use App\Product;
 
+/**
+ * App\Models\Fee
+ *
+ * @method static Builder|Fee newModelQuery()
+ * @method static Builder|Fee newQuery()
+ * @method static Builder|Fee query()
+ * @mixin Eloquent
+ */
 class Fee extends Model
 {
     protected $fillable = ['origin', 'destination', 'courier', 'service',
@@ -26,12 +36,12 @@ class Fee extends Model
         return $fee->populateCost();
     }
 
-    protected function haveCost()
+    protected function haveCost(): bool
     {
         return $this->cost > 0;
     }
 
-    protected function isNeedUpdate()
+    protected function isNeedUpdate(): bool
     {
         return $this->updated_at->diffInDays(Carbon::today()) > 7;
     }

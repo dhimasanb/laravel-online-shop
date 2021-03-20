@@ -1028,7 +1028,7 @@
 	
 			if ((self.isFull() || self.isInputHidden) && !(IS_MAC ? e.metaKey : e.ctrlKey)) {
 				e.preventDefault();
-				return;
+
 			}
 		},
 	
@@ -3153,7 +3153,7 @@
 	
 			if (this.settings.mode === 'single') {
 				singleClose(this, options);
-				return;
+
 			} else {
 				multiClose(this, options);
 			}

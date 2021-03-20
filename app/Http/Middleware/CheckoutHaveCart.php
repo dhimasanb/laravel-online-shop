@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Support\CartService;
+use Illuminate\Http\Request;
 
 class CheckoutHaveCart
 {
@@ -17,8 +18,8 @@ class CheckoutHaveCart
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param  Closure  $next
      * @return mixed
      */
      

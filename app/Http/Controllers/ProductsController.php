@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Product;
+use Illuminate\Http\Response;
+use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use File;
 
 class ProductsController extends Controller
 {
-    protected function savePhoto(UploadedFile $photo)
+    protected function savePhoto(UploadedFile $photo): string
     {
-        $fileName = str_random(40) . '.' . $photo->guessClientExtension();
+        $fileName = Str::random(40) . '.' . $photo->guessClientExtension();
         $destinationPath = public_path() . DIRECTORY_SEPARATOR . 'img';
         $photo->move($destinationPath, $fileName);
         return $fileName;
@@ -22,10 +29,12 @@ class ProductsController extends Controller
         $this->middleware('auth');
         $this->middleware('role:admin');
     }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return Application|Factory|View|Response
      */
     public function index(Request $request)
     {
@@ -39,7 +48,7 @@ class ProductsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
     public function create()
     {
@@ -49,10 +58,11 @@ class ProductsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
       $this->validate($request, [
           'name' => 'required|unique:products',
@@ -78,7 +88,7 @@ class ProductsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -89,9 +99,9 @@ class ProductsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View|Response
      */
-    public function edit($id)
+    public function edit(int $id)
     {
         $product = Product::findOrFail($id);
         return view('products.edit', compact('product'));
@@ -100,11 +110,12 @@ class ProductsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id): RedirectResponse
     {
         $product = Product::findOrFail($id);
         $this->validate($request, [
@@ -137,7 +148,7 @@ class ProductsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
     public function destroy($id)
     {
@@ -148,7 +159,7 @@ class ProductsController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function deletePhoto($filename)
+    public function deletePhoto($filename): bool
     {
         $path = public_path() . DIRECTORY_SEPARATOR . 'img'
             . DIRECTORY_SEPARATOR . $filename;
